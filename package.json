@@ -1,0 +1,14 @@
+{
+  "name": "s-browser-pro",
+  "version": "2.0.0",
+  "description": "Advanced browser-style desktop app built with Electron",
+  "main": "main.js",
+  "author": "Subhash",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^31.0.2"
+  }
+}
