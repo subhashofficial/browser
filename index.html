@@ -1,22 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>S Browser</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self' 'unsafe-inline' data: https: http:;"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S Browser Pro</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body data-theme="dark">
   <div class="app">
-    <h1>S Browser</h1>
-    <p>My browser-style project is working.</p>
+    <header class="topbar">
+      <div class="brand-row">
+        <div class="brand-wrap">
+          <div class="brand">S Browser Pro</div>
+          <div class="tagline" id="tagline">Advanced browser-style desktop app</div>
+        </div>
+        <div class="top-meta">
+          <div class="time" id="clock"></div>
+          <div class="top-info" id="topInfo">Ready</div>
+        </div>
+      </div>
 
-    <input type="text" id="url" placeholder="Enter website or search">
-    <button onclick="openSite()">Go</button>
+      <div class="toolbar">
+        <button onclick="goBack()" title="Back">⬅</button>
+        <button onclick="goForward()" title="Forward">➡</button>
+        <button onclick="reloadTab()" title="Reload">⟳</button>
+        <button onclick="goHome()" title="Home">🏠</button>
+        <button onclick="newTab()" title="New Tab">＋</button>
+        <button onclick="closeCurrentTab()" title="Close Tab">✕</button>
 
-    <iframe id="frame" src="https://example.com"></iframe>
+        <select id="searchEngine">
+          <option value="google">Google</option>
+          <option value="bing">Bing</option>
+          <option value="duckduckgo">DuckDuckGo</option>
+        </select>
+
+        <input id="addressBar" type="text" placeholder="Search or enter website URL..." />
+
+        <button class="secondary" onclick="goToAddress()">Go</button>
+        <button class="success" onclick="searchWeb()">Search</button>
+        <button class="warning" onclick="downloadCurrent()">Download</button>
+        <button class="danger" onclick="openOutside()">Open Outside</button>
+      </div>
+
+      <div class="toolbar toolbar-small">
+        <button class="soft" onclick="zoomOut()">－ Zoom</button>
+        <button class="soft" onclick="zoomReset()">Reset Zoom</button>
+        <button class="soft" onclick="zoomIn()">＋ Zoom</button>
+        <button class="soft" onclick="toggleTheme()">Toggle Theme</button>
+        <button class="soft" onclick="window.electronAPI.newWindow()">New Window</button>
+        <button class="soft" onclick="window.electronAPI.newIncognitoWindow()">Incognito Window</button>
+        <button class="soft" onclick="clearHistory()">Clear History</button>
+      </div>
+    </header>
+
+    <section class="tabs-bar" id="tabsBar"></section>
+
+    <main class="main">
+      <aside class="sidebar">
+        <div class="panel">
+          <div class="panel-title">Quick Links</div>
+          <div class="panel-list">
+            <button class="panel-btn" onclick="openQuick('https://www.google.com')">Google</button>
+            <button class="panel-btn" onclick="openQuick('https://www.youtube.com')">YouTube</button>
+            <button class="panel-btn" onclick="openQuick('https://github.com')">GitHub</button>
+            <button class="panel-btn" onclick="openQuick('https://www.wikipedia.org')">Wikipedia</button>
+            <button class="panel-btn" onclick="openQuick('https://developer.mozilla.org')">MDN Docs</button>
+            <button class="panel-btn" onclick="openQuick('https://stackoverflow.com')">Stack Overflow</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Bookmarks</div>
+          <div class="panel-list" id="bookmarkList"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">History</div>
+          <div class="panel-list" id="historyList"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Shortcuts</div>
+          <div class="panel-list">
+            <div class="info-box">Ctrl+L = Focus address bar</div>
+            <div class="info-box">Ctrl+T = New tab</div>
+            <div class="info-box">Ctrl+W = Close tab</div>
+            <div class="info-box">Ctrl+R = Reload</div>
+            <div class="info-box">Ctrl++ = Zoom in</div>
+            <div class="info-box">Ctrl+- = Zoom out</div>
+            <div class="info-box">Ctrl+0 = Reset zoom</div>
+          </div>
+        </div>
+      </aside>
+
+      <section class="viewer-area" id="viewerArea"></section>
+    </main>
   </div>
 
-  <script src="script.js"></script>
+  <script src="renderer.js"></script>
 </body>
 </html>
